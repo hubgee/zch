@@ -81,6 +81,35 @@ class HomePage extends Model
         return url($value);
     }
 
+    /**
+     * Normalize a URL stored in navigation/content data so that root-relative
+     * paths (e.g. /about, /management) resolve through Laravel and work both
+     * when the app is deployed at the domain root or inside a subdirectory.
+     *
+     * External URLs (http://..., https://...) and special schemes (tel:,
+     * mailto:) are returned unchanged.
+     */
+    public static function resolveNavUrl(?string $value): string
+    {
+        if (blank($value)) {
+            return '#';
+        }
+
+        if (str_starts_with($value, 'http')
+            || str_starts_with($value, 'https')
+            || str_starts_with($value, 'tel:')
+            || str_starts_with($value, 'mailto:')
+            || str_starts_with($value, '//')) {
+            return $value;
+        }
+
+        if (Route::has($value)) {
+            return route($value);
+        }
+
+        return url($value);
+    }
+
     public static function assetUrl(?string $path): ?string
     {
         if (blank($path)) {

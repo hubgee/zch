@@ -72,7 +72,7 @@
             </li>
           </ul>
           <div class="link-btn text-center text-lg-right">
-            <a href="{{ data_get($contact, 'appointment_url', '/appointment') }}" class="btn-style-one">{{ data_get($contact, 'appointment_text', 'Appointment') }}</a>
+            <a href="{{ \App\Models\HomePage::resolveNavUrl(data_get($contact, 'appointment_url', '/appointment')) }}" class="btn-style-one">{{ data_get($contact, 'appointment_text', 'Appointment') }}</a>
           </div>
         </div>
       </div>
@@ -92,7 +92,7 @@
       <ul class="navbar-nav mr-auto">
         @foreach($navItems as $navItem)
           @php
-            $navUrl = data_get($navItem, 'url', '#');
+            $navUrl = \App\Models\HomePage::resolveNavUrl(data_get($navItem, 'url', '#'));
             $navLabel = data_get($navItem, 'label', '');
             $navChildren = data_get($navItem, 'children', []);
             $isDepartments = data_get($navItem, 'type') === 'departments';
@@ -112,7 +112,7 @@
                 @else
                   @foreach($navChildren as $child)
                     @php
-                      $childUrl = data_get($child, 'url', '#');
+                      $childUrl = \App\Models\HomePage::resolveNavUrl(data_get($child, 'url', '#'));
                       $childLabel = data_get($child, 'label', '');
                       $childChildren = data_get($child, 'children', []);
                       $hasSubmenu = count($childChildren) > 0;
@@ -124,7 +124,7 @@
                         <a class="dropdown-item dropdown-toggle" href="#!" id="navSubDropdown{{ $loop->parent->index }}-{{ $loop->index }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ $childLabel }}</a>
                         <ul class="dropdown-menu" aria-labelledby="navSubDropdown{{ $loop->parent->index }}-{{ $loop->index }}">
                           @foreach($childChildren as $subChild)
-                          <li><a class="dropdown-item" href="{{ data_get($subChild, 'url', '#') }}">{{ data_get($subChild, 'label', '') }}</a></li>
+                          <li><a class="dropdown-item" href="{{ \App\Models\HomePage::resolveNavUrl(data_get($subChild, 'url', '#')) }}">{{ data_get($subChild, 'label', '') }}</a></li>
                           @endforeach
                         </ul>
                       </li>

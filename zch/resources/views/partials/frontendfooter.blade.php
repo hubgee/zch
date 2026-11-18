@@ -182,7 +182,7 @@
                 <li class="item">
                   <i class="{{ data_get($item, 'icon', '') }}"></i>
                   @if(data_get($item, 'href'))
-                    <a href="{{ data_get($item, 'href') }}">
+                    <a href="{{ \App\Models\HomePage::resolveNavUrl(data_get($item, 'href')) }}">
                       <p>{!! nl2br(e(data_get($item, 'text', ''))) !!}</p>
                     </a>
                   @else
@@ -194,7 +194,7 @@
             <ul class="list-inline social-icons">
               @foreach(data_get($footerData, 'about.social_links', []) as $social)
                 <li class="list-inline-item">
-                  <a href="{{ data_get($social, 'url', '#') }}" aria-label="{{ data_get($social, 'label', '') }}">
+                  <a href="{{ \App\Models\HomePage::resolveNavUrl(data_get($social, 'url', '#')) }}" aria-label="{{ data_get($social, 'label', '') }}">
                     <i class="{{ data_get($social, 'icon', '') }}"></i>
                   </a>
                 </li>
@@ -211,7 +211,7 @@
           <ul class="menu-link">
             @foreach(data_get($footerData, 'quick_links.items', []) as $link)
               <li>
-                <a href="{{ data_get($link, 'url', '#') }}">
+                <a href="{{ \App\Models\HomePage::resolveNavUrl(data_get($link, 'url', '#')) }}">
                   <i class="fa fa-angle-right" aria-hidden="true"></i>{{ data_get($link, 'label', '') }}
                 </a>
               </li>
@@ -282,7 +282,7 @@
       <ul class="footer-bottom-link">
         @foreach(data_get($footerData, 'bottom.links', []) as $bLink)
           <li>
-            <a href="{{ data_get($bLink, 'url', '#') }}">{{ data_get($bLink, 'label', '') }}</a>
+            <a href="{{ \App\Models\HomePage::resolveNavUrl(data_get($bLink, 'url', '#')) }}">{{ data_get($bLink, 'label', '') }}</a>
           </li>
         @endforeach
       </ul>
